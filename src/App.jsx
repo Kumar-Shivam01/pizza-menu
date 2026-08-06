@@ -1,4 +1,4 @@
-import './App.css'
+import "./App.css";
 
 const pizzaData = [
   {
@@ -45,49 +45,74 @@ const pizzaData = [
   },
 ];
 
-
 function App() {
   return (
-    <div className='container'>
-      <Header/>
-      <Menu/>
-      <Footer/>
+    <div className="container">
+      <Header />
+      <Menu />
+      <Footer />
     </div>
-  )
+  );
 }
-function Header(){
-  return(
+function Header() {
+  return (
     <header className="header footer">
       <h1>Fast React Pizza Co.</h1>
     </header>
-    
-  )
+  );
 }
-function Menu(){
+function Menu() {
+  const pizzas = pizzaData;
+  const numPizza = pizzas.length;
   return (
     <main className="menu">
-    <h2>Our menu</h2>
-    <ul className='pizzas'> 
-        {pizzaData.map((pizza) => <Pizza pizzaObj={pizza} key={pizza.name}/>)}
-    </ul>
+      <h2>Our menu</h2>
+
+      {numPizza > 0 ? (
+        <ul className="pizzas">
+          {pizzas.map((pizza) => (
+            <Pizza pizzaObj={pizza} key={pizza.name} />
+          ))}
+        </ul>
+      ) : (
+        <p>We're still working on our menu. Please come back later.</p>
+      )}
     </main>
-  )
+  );
 }
-function Footer(){
-  return(
-    <footer className="footer">{new Date().toLocaleDateString()} We are currently open!</footer>
-  )
-}
-function Pizza(props){
+function Footer() {
+  const hour = new Date().getHours();
+  const openHour = 20,
+    closeHour = 22;
+  const isOpen = hour >= openHour && hour <= closeHour;
+
   return (
-    <li className='pizza'>
-    <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name}/>
-    <div>
-      <h3>{props.pizzaObj.name}</h3>
-      <p>{props.pizzaObj.ingredients}</p>
-      <span>{props.pizzaObj.price}</span>
-    </div>
+    <footer className="footer">
+      {isOpen ? (
+        <div className="order">
+          <p>We're open until {closeHour}:00. Come visit us or order online.</p>
+          <button className="btn">Order</button>
+        </div>
+      ) : (
+        <p>
+          We're happy to welcome you between {openHour}:00 and {closeHour}:00.
+        </p>
+      )}
+    </footer>
+  );
+}
+function Pizza(props) {
+  if(props.pizzaObj.soldOut) return null;
+  
+  return (
+    <li className="pizza">
+      <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name} />
+      <div>
+        <h3>{props.pizzaObj.name}</h3>
+        <p>{props.pizzaObj.ingredients}</p>
+        <span>{props.pizzaObj.price}</span>
+      </div>
     </li>
-  )
- }
-export default App
+  );
+}
+export default App;
