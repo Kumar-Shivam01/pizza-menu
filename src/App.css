@@ -114,6 +114,15 @@ body {
   width: 12rem;
   aspect-ratio: 1;
   align-self: start;
+  border-radius: 8px;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, filter 0.3s ease;
+  cursor: pointer;
+}
+
+.pizza:hover img {
+  transform: scale(1.1) rotate(3deg);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  filter: brightness(1.05);
 }
 
 .pizza div {
@@ -147,6 +156,12 @@ body {
 .pizza.sold-out img {
   filter: grayscale();
   opacity: 0.8;
+}
+
+.pizza.sold-out:hover img {
+  transform: scale(1.05) rotate(2deg);
+  filter: grayscale() opacity(0.9);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
 }
 
 /* *************** */
